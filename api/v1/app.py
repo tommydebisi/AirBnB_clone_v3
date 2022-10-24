@@ -3,7 +3,8 @@
     App module
 """
 from api import storage
-from flask import Flask, jsonify
+from api.v1.views import app_views
+from flask import Flask, make_response, jsonify
 from flask_cors import CORS
 from os import getenv
 from api.v1.views import app_views
@@ -11,6 +12,7 @@ from api.v1.views import app_views
 app = Flask(__name__)
 host = getenv('HBNB_API_HOST') if (getenv('HBNB_API_HOST')) else '0.0.0.0'
 port = getenv('HBNB_API_PORT') if (getenv('HBNB_API_PORT')) else 5000
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
 CORS(app, resources={r'/*': {"origins": host}})
 
@@ -28,7 +30,7 @@ def teardown_app(exception):
 def handleErr(e):
     """ returns a JSON-formatted 404 status code response."""
     msg = {'error': 'Not found'}
-    return (jsonify(msg), 404)
+    return make_response(jsonify(msg), 404)
 
 
 if __name__ == '__main__':
