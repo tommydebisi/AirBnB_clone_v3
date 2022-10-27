@@ -4,7 +4,7 @@
 """
 from werkzeug.exceptions import MethodNotAllowed, NotFound, BadRequest
 from api.v1.views import app_views
-from api import storage, State, City, storage_t
+from api import storage, State, City, Place, Review, storage_t
 from flask import jsonify, request
 
 
